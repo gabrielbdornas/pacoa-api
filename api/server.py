@@ -4,8 +4,7 @@ from pandas_datapackage_reader import read_datapackage
 
 api = falcon.API()
 
-data = read_datapackage("..")
-
+data = read_datapackage(".")
 def get_paginated_json(req, df):
     per_page = int(req.get_param('per_page', required=False, default=10))
     page = (int(req.get_param('page', required=False, default=1))-1)*per_page
@@ -32,8 +31,8 @@ class DataResource:
         resp.status = falcon.HTTP_200
         resp.body = get_paginated_json(req, df)
 
-for resource in data['resources']:
-    api.add_route("/%s" % resource['name'], DataResource(resource))
+for resource_name in data.keys():
+    api.add_route("/%s" % resource_name, DataResource(data[resource_name]))
 
 if __name__ == '__main__':
     with make_server('', 8000, api) as httpd:
