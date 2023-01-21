@@ -9,8 +9,12 @@
       "name": "user_id"
     },
     {
-      "type": "string",
-      "name": "donation_date"
+      "type": "date",
+      "name": "donation_date",
+      "format": "%d/%m/%Y",
+      "constraints": {
+        "required": true
+      }
     }
   ],
   "primaryKey": "id",
