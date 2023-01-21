@@ -1,2 +1,0 @@
-falcon
-pandas-datapackage-reader
