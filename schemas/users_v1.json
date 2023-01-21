@@ -6,11 +6,18 @@
     },
     {
       "type": "string",
-      "name": "name"
+      "name": "name",
+      "constraints": {
+        "required": true
+      }
     },
     {
-      "type": "string",
-      "name": "birth_date"
+      "type": "date",
+      "name": "birth_date",
+      "format": "%d/%m/%Y",
+      "constraints": {
+        "required": true
+      }
     }
   ],
   "primaryKey": "id"
