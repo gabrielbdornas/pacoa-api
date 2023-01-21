@@ -6,7 +6,10 @@
     },
     {
       "type": "integer",
-      "name": "user_id"
+      "name": "user_id",
+      "constraints": {
+        "required": true
+      }
     },
     {
       "type": "date",
