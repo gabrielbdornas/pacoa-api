@@ -1,0 +1,16 @@
+{
+  "fields": [
+    {
+      "type": "integer",
+      "name": "id"
+    },
+    {
+      "type": "integer",
+      "name": "user_id"
+    },
+    {
+      "type": "string",
+      "name": "donation_date"
+    }
+  ]
+}

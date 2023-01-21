@@ -8,22 +8,7 @@
       "format": "csv",
       "hashing": "md5",
       "encoding": "utf-8",
-      "schema": {
-        "fields": [
-          {
-            "type": "integer",
-            "name": "id"
-          },
-          {
-            "type": "integer",
-            "name": "user_id"
-          },
-          {
-            "type": "string",
-            "name": "donation_date"
-          }
-        ]
-      }
+      "schema": "schemas/donations_v1.json"
     },
     {
       "path": "data/users.csv",
@@ -33,22 +18,7 @@
       "format": "csv",
       "hashing": "md5",
       "encoding": "utf-8",
-      "schema": {
-        "fields": [
-          {
-            "type": "integer",
-            "name": "id"
-          },
-          {
-            "type": "string",
-            "name": "name"
-          },
-          {
-            "type": "string",
-            "name": "birth_date"
-          }
-        ]
-      }
+      "schema": "schemas/users_v1.json"
     }
   ],
   "profile": "data-package"

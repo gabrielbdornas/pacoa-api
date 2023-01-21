@@ -1,0 +1,16 @@
+{
+        "fields": [
+          {
+            "type": "integer",
+            "name": "id"
+          },
+          {
+            "type": "string",
+            "name": "name"
+          },
+          {
+            "type": "string",
+            "name": "birth_date"
+          }
+        ]
+      }
