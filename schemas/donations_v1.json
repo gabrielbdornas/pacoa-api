@@ -12,5 +12,6 @@
       "type": "string",
       "name": "donation_date"
     }
-  ]
+  ],
+  "primaryKey": "id"
 }

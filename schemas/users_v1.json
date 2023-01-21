@@ -1,16 +1,17 @@
 {
-        "fields": [
-          {
-            "type": "integer",
-            "name": "id"
-          },
-          {
-            "type": "string",
-            "name": "name"
-          },
-          {
-            "type": "string",
-            "name": "birth_date"
-          }
-        ]
-      }
+  "fields": [
+    {
+      "type": "integer",
+      "name": "id"
+    },
+    {
+      "type": "string",
+      "name": "name"
+    },
+    {
+      "type": "string",
+      "name": "birth_date"
+    }
+  ],
+  "primaryKey": "id"
+}
