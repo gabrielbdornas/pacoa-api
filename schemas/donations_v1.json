@@ -13,5 +13,14 @@
       "name": "donation_date"
     }
   ],
-  "primaryKey": "id"
+  "primaryKey": "id",
+  "foreignKeys": [
+    {
+      "fields": "user_id",
+      "reference": {
+        "resource": "users",
+        "fields": "id"
+      }
+    }
+  ]
 }
