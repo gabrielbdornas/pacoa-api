@@ -1,0 +1,55 @@
+{
+  "resources": [
+    {
+      "path": "data/donations.csv",
+      "name": "donations",
+      "profile": "tabular-data-resource",
+      "scheme": "file",
+      "format": "csv",
+      "hashing": "md5",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "type": "integer",
+            "name": "id"
+          },
+          {
+            "type": "integer",
+            "name": "user_id"
+          },
+          {
+            "type": "string",
+            "name": "donation_date"
+          }
+        ]
+      }
+    },
+    {
+      "path": "data/users.csv",
+      "name": "users",
+      "profile": "tabular-data-resource",
+      "scheme": "file",
+      "format": "csv",
+      "hashing": "md5",
+      "encoding": "utf-8",
+      "schema": {
+        "fields": [
+          {
+            "type": "integer",
+            "name": "id"
+          },
+          {
+            "type": "string",
+            "name": "name"
+          },
+          {
+            "type": "string",
+            "name": "birth_date"
+          }
+        ]
+      }
+    }
+  ],
+  "profile": "data-package"
+}
