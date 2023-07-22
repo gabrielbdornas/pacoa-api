@@ -8,9 +8,9 @@ from ..models import recipient
 blueprints = Blueprint('recipients', __name__)
 model = recipient.Recipient()
 schema = recipient.RecipientSchema
+schemas = recipient.RecipientSchema(many=True)
 
 @blueprints.route('/recipients', methods=['GET'])
-def get_recipients():
-    bs = schema(many=True)
+def get():
     recipients = model.query.all()
-    return bs.jsonify(bs.dump(recipients)), 200
+    return jsonify(schemas.dump(recipients)), 200
