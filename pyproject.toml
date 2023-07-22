@@ -1,2 +1,2 @@
 [tool.taskipy.tasks]
-server = { cmd = "flask --app flask_blog run --debug", help = "Start the development server." }
+server = { cmd = "flask run --debug", help = "Start the development server." }
