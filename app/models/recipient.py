@@ -4,7 +4,7 @@ from . import (
                ModelSchema,
                )
 
-class Recipient(Model):
+class Recipient(db.Model, Model):
     name = db.Column(db.String(255), nullable=False)
     birthdate = db.Column(db.String(255))
 
@@ -15,5 +15,5 @@ class Recipient(Model):
 class RecipientSchema(ModelSchema):
 
     class Meta():
-        ModelSchema.Meta
+        ModelSchema.Meta()
         model = Recipient
