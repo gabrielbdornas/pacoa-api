@@ -1,3 +1,8 @@
 ipdb==0.13.13
 Flask==2.3.2
 taskipy==1.11.0
+requests==2.31.0
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.4
+flask-marshmallow==0.15.0
+marshmallow-sqlalchemy==0.29.0
