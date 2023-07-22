@@ -16,5 +16,6 @@ class Recipient(db.Model, Model):
 class RecipientSchema(ModelSchema):
 
     class Meta():
-        ModelSchema.Meta()
+        ModelSchema.Meta() # Não funcionando
         model = Recipient
+        load_instance = True

@@ -17,5 +17,4 @@ class Model():
 
 class ModelSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        load_instance = True
-
+        load_instance = True # Não funcionando
