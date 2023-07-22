@@ -3,6 +3,6 @@
 Documentação das principais alterações deste repositório.
 Baseado na filosofia [Mantenha um CHANGELOG](https://keepachangelog.com/pt-BR/1.0.0/).
 
-### [1.0] - 20XX-XX-XX
+### [0.1] - 2023-07-22
 
-- Publica primeira versão.
+- Incício da construção da api.
