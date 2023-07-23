@@ -31,6 +31,6 @@ def create():
         current_app.db.session.commit()
         return jsonify(schema.dump(recipient)), 201
     except ValidationError as error:
-        print(error.messages)  # => {"email": ['"foo" is not a valid email address.']}
-        print(error.valid_data)  # => {"name": "John"}
+        print(error.messages)
+        print(error.valid_data)
         return jsonify(error.messages), 401
