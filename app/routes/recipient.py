@@ -15,8 +15,13 @@ schemas = recipient.RecipientSchema(many=True)
 
 @blueprints.route('/recipients', methods=['GET'])
 def get():
-    recipients = model.query.all()
-    return jsonify(schemas.dump(recipients)), 200
+    try:
+        recipients = model.query.all()
+        return jsonify(schemas.dump(recipients)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
 
 @blueprints.route('/recipients', methods=['POST'])
 def create():
