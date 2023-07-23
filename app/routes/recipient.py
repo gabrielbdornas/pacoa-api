@@ -57,6 +57,19 @@ def create():
         print(error.valid_data)
         return jsonify(error.messages), 401
 
+@blueprints.route('/recipients/<int:id>', methods=['PUT'])
+def update(id):
+    try:
+        # import ipdb; ipdb.set_trace(context=10)
+        update_recipient = model.query.filter(recipient.Recipient.id == id)
+        update_recipient.update(request.json)
+        current_app.db.session.commit()
+        return jsonify(schema.dump(update_recipient.first())), 201
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
+
 @blueprints.route('/recipients/<int:id>', methods=['DELETE'])
 def delete(id):
     try:
