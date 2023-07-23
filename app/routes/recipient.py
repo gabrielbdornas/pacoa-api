@@ -23,6 +23,16 @@ def get():
         print(error.valid_data)
         return jsonify(error.messages), 401
 
+@blueprints.route('/recipients/<int:id>', methods=['GET'])
+def get_by_id(id):
+    try:
+        recipient = model.query.get(id)
+        return jsonify(schema.dump(recipient)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
+
 @blueprints.route('/recipients', methods=['POST'])
 def create():
     try:
