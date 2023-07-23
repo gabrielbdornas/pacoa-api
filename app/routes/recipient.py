@@ -56,3 +56,15 @@ def create():
         print(error.messages)
         print(error.valid_data)
         return jsonify(error.messages), 401
+
+@blueprints.route('/recipients/<int:id>', methods=['DELETE'])
+def delete(id):
+    try:
+        recipient = model.query.get(id)
+        current_app.db.session.delete(recipient)
+        current_app.db.session.commit()
+        return jsonify(schema.dump(recipient)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
