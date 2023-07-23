@@ -33,6 +33,18 @@ def get_by_id(id):
         print(error.valid_data)
         return jsonify(error.messages), 401
 
+@blueprints.route('/recipients/substring/<string:substring>', methods=['GET'])
+def get_by_substring(substring):
+    try:
+        recipients = model.query.filter(
+            recipient.Recipient.name.startswith(substring)
+        ).all()
+        return jsonify(schemas.dump(recipients)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
+
 @blueprints.route('/recipients', methods=['POST'])
 def create():
     try:
