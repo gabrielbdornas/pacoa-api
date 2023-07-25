@@ -45,7 +45,12 @@ class Recipient(db.Model, Model):
             )
             string_io_obj = StringIO(data.text)
             df = pd.read_csv(string_io_obj, sep=",", index_col=0)
-            [recipients.append(name) for name in df['nome_completo']]
+            df = df.reset_index()
+            for index, row in df.iterrows():
+                recipients.append({
+                    'name': row['nome_completo'],
+                    'list_kind': row['tipo'],
+                })
         return recipients
 
 class RecipientSchema(ModelSchema):
@@ -54,4 +59,4 @@ class RecipientSchema(ModelSchema):
         ModelSchema.Meta() # Não funcionando
         model = Recipient
         load_instance = True
-print(Recipient.seed())
+
