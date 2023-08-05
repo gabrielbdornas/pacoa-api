@@ -40,7 +40,7 @@ def get_by_id(id):
 def get_by_substring(substring):
     try:
         recipients = model.query.filter(
-            recipient.Recipient.name.startswith(substring)
+            Recipient.name.startswith(substring)
         ).all()
         return jsonify(schemas.dump(recipients)), 200
     except ValidationError as error:
@@ -64,7 +64,7 @@ def create():
 def update(id):
     try:
         # import ipdb; ipdb.set_trace(context=10)
-        update_recipient = model.query.filter(recipient.Recipient.id == id)
+        update_recipient = model.query.filter(Recipient.id == id)
         update_recipient.update(request.json)
         current_app.db.session.commit()
         return jsonify(schema.dump(update_recipient.first())), 201
