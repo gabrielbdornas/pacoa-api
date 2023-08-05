@@ -1,19 +1,28 @@
-from . import (
-               db,
-               Model,
-               ModelSchema,
-               )
+from flask_marshmallow import Marshmallow
+from flask_sqlalchemy import SQLAlchemy
+import datetime
 from dotenv import load_dotenv
 from io import StringIO
 import os
 import pandas as pd
 import requests
 
-class Recipient(db.Model, Model):
+db = SQLAlchemy()
+ma = Marshmallow()
+
+def configure_db(app):
+    db.init_app(app)
+    app.db = db # Não entendi bem, mas segundo ele é p ficar mais fácil e ter algo p chamar na rota
+
+def configure_ma(app):
+    ma.init_app(app)
+
+class Recipient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     birthdate = db.Column(db.String(255))
     list_kind = db.Column(db.String(255))
-    attendances = db.relationship('Attendance', backref='date', lazy=True)
+    attendances = db.relationship('Attendance', backref='attendance', lazy=True)
     seed_files = [
         {
         'org_repo': 'gabrielbdornas/pacoa-dataset',
@@ -54,9 +63,13 @@ class Recipient(db.Model, Model):
                 })
         return recipients
 
-class RecipientSchema(ModelSchema):
+class Attendance(db.Model):
+    now = datetime.datetime.utcnow
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, default=now, nullable=False)
+    observation = db.Column(db.String(255))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('recipient.id'), nullable=False)
 
-    class Meta():
-        ModelSchema.Meta() # Não funcionando
-        model = Recipient
-        load_instance = True
+    def __repr__(self):
+        recipient = Recipient.query.get(self.recipient_id)
+        return f"Attendance(recipient: '{recipient.name}', date: '{self.date}', observation:'{self.observation}')"

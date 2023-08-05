@@ -5,13 +5,13 @@ from flask import (
                    request,
                   )
 from marshmallow import ValidationError
-from ..models import recipient
-
+from .models import Recipient
+from .schemas import RecipientSchema
 
 blueprints = Blueprint('recipients', __name__)
-model = recipient.Recipient()
-schema = recipient.RecipientSchema()
-schemas = recipient.RecipientSchema(many=True)
+model = Recipient()
+schema = RecipientSchema()
+schemas = RecipientSchema(many=True)
 
 @blueprints.route('/recipients', methods=['GET'])
 def get():
