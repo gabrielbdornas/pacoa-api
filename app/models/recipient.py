@@ -13,6 +13,7 @@ class Recipient(db.Model, Model):
     name = db.Column(db.String(255), nullable=False)
     birthdate = db.Column(db.String(255))
     list_kind = db.Column(db.String(255))
+    attendances = db.relationship('Attendance', backref='date', lazy=True)
     seed_files = [
         {
         'org_repo': 'gabrielbdornas/pacoa-dataset',
@@ -59,4 +60,3 @@ class RecipientSchema(ModelSchema):
         ModelSchema.Meta() # Não funcionando
         model = Recipient
         load_instance = True
-
