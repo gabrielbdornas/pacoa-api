@@ -13,3 +13,5 @@ class AttendanceSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Attendance
         load_instance = True
+        include_fk = True
+        include_relationships = True

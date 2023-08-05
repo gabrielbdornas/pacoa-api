@@ -13,7 +13,7 @@ def create_app():
 
     Migrate(app, app.db)
 
-    from .recipient import blueprints
-    app.register_blueprint(blueprints)
+    from .recipient import recipient_blueprint
+    app.register_blueprint(recipient_blueprint)
 
     return app

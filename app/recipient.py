@@ -5,15 +5,18 @@ from flask import (
                    request,
                   )
 from marshmallow import ValidationError
+from .attendance import attendance_blueprint
 from .models import Recipient
 from .schemas import RecipientSchema
 
-blueprints = Blueprint('recipients', __name__)
+recipient_blueprint = Blueprint('recipients', __name__)
+recipient_blueprint.register_blueprint(attendance_blueprint)
+
 model = Recipient()
 schema = RecipientSchema()
 schemas = RecipientSchema(many=True)
 
-@blueprints.route('/recipients', methods=['GET'])
+@recipient_blueprint.route('/recipients', methods=['GET'])
 def get():
     try:
         recipients = model.query.all()
@@ -23,7 +26,7 @@ def get():
         print(error.valid_data)
         return jsonify(error.messages), 401
 
-@blueprints.route('/recipients/<int:id>', methods=['GET'])
+@recipient_blueprint.route('/recipients/<int:id>', methods=['GET'])
 def get_by_id(id):
     try:
         recipient = model.query.get(id)
@@ -33,7 +36,7 @@ def get_by_id(id):
         print(error.valid_data)
         return jsonify(error.messages), 401
 
-@blueprints.route('/recipients/substring/<string:substring>', methods=['GET'])
+@recipient_blueprint.route('/recipients/substring/<string:substring>', methods=['GET'])
 def get_by_substring(substring):
     try:
         recipients = model.query.filter(
@@ -45,7 +48,7 @@ def get_by_substring(substring):
         print(error.valid_data)
         return jsonify(error.messages), 401
 
-@blueprints.route('/recipients', methods=['POST'])
+@recipient_blueprint.route('/recipients', methods=['POST'])
 def create():
     try:
         recipient = schema.load(request.json)
@@ -57,7 +60,7 @@ def create():
         print(error.valid_data)
         return jsonify(error.messages), 401
 
-@blueprints.route('/recipients/<int:id>', methods=['PUT'])
+@recipient_blueprint.route('/recipients/<int:id>', methods=['PUT'])
 def update(id):
     try:
         # import ipdb; ipdb.set_trace(context=10)
@@ -70,7 +73,7 @@ def update(id):
         print(error.valid_data)
         return jsonify(error.messages), 401
 
-@blueprints.route('/recipients/<int:id>', methods=['DELETE'])
+@recipient_blueprint.route('/recipients/<int:id>', methods=['DELETE'])
 def delete(id):
     try:
         recipient = model.query.get(id)
