@@ -4,6 +4,8 @@ from flask import (
                    jsonify,
                    request,
                   )
+import datetime
+from sqlalchemy import func
 from marshmallow import ValidationError
 from .models import Recipient, Attendance
 from .schemas import AttendanceSchema
@@ -27,10 +29,17 @@ def get(recipient_id):
 @attendance_blueprint.route('/recipients/attendances', methods=['POST'])
 def create():
     try:
-        attendance = schema.load(request.json)
-        current_app.db.session.add(attendance)
-        current_app.db.session.commit()
-        return jsonify(schema.dump(attendance)), 201
+        date = datetime.datetime.utcnow().date()
+        attendances = current_app.db.session.query(Attendance). \
+                      filter(func.date(Attendance.date) == date). \
+                      all()
+        if len(attendances) > 0:
+            raise ValidationError('Presence alread checked for this recipient in this date.')
+        else:
+            attendance = schema.load(request.json)
+            current_app.db.session.add(attendance)
+            current_app.db.session.commit()
+            return jsonify(schema.dump(attendance)), 201
     except ValidationError as error:
         print(error.messages)
         print(error.valid_data)
