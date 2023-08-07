@@ -30,7 +30,9 @@ def get(recipient_id):
 def create():
     try:
         date = datetime.datetime.utcnow().date()
+        # import ipdb; ipdb.set_trace(context=10)
         attendances = current_app.db.session.query(Attendance). \
+                      filter(Attendance.recipient_id == request.json['recipient_id']). \
                       filter(func.date(Attendance.date) == date). \
                       all()
         if len(attendances) > 0:
