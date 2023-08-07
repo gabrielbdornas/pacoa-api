@@ -15,8 +15,28 @@ model = Attendance()
 schema = AttendanceSchema()
 schemas = AttendanceSchema(many=True)
 
+@attendance_blueprint.route('/attendances', methods=['GET'])
+def get():
+    try:
+        attendance = model.query.all()
+        return jsonify(schemas.dump(attendance)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
+
+@attendance_blueprint.route('/attendances/<int:id>', methods=['GET'])
+def get_by_id(id):
+    try:
+        attendance = model.query.get(id)
+        return jsonify(schema.dump(attendance)), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
+
 @attendance_blueprint.route('/recipients/<int:recipient_id>/attendances', methods=['GET'])
-def get(recipient_id):
+def get_by_recipient(recipient_id):
     try:
         recipient = Recipient.query.get(recipient_id)
         attendances = recipient.attendances
@@ -30,7 +50,6 @@ def get(recipient_id):
 def create():
     try:
         date = datetime.datetime.utcnow().date()
-        # import ipdb; ipdb.set_trace(context=10)
         attendances = current_app.db.session.query(Attendance). \
                       filter(Attendance.recipient_id == request.json['recipient_id']). \
                       filter(func.date(Attendance.date) == date). \
@@ -60,14 +79,17 @@ def create():
 #         print(error.valid_data)
 #         return jsonify(error.messages), 401
 
-# @attendance_blueprint.route('/recipients/<int:id>', methods=['DELETE'])
-# def delete(id):
-#     try:
-#         recipient = model.query.get(id)
-#         current_app.db.session.delete(recipient)
-#         current_app.db.session.commit()
-#         return jsonify(schema.dump(recipient)), 200
-#     except ValidationError as error:
-#         print(error.messages)
-#         print(error.valid_data)
-#         return jsonify(error.messages), 401
+@attendance_blueprint.route('/attendances/<int:id>', methods=['DELETE'])
+def delete(id):
+    try:
+        attendance = model.query.get(id)
+        if attendance == None:
+            raise ValidationError('Attendance id not exist.')
+        else:
+            current_app.db.session.delete(attendance)
+            current_app.db.session.commit()
+            return jsonify({'deleted': f'id: {id}.'}), 200
+    except ValidationError as error:
+        print(error.messages)
+        print(error.valid_data)
+        return jsonify(error.messages), 401
