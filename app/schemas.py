@@ -1,8 +1,14 @@
 from .models import (
                      ma,
+                     User,
                      Recipient,
                      Attendance,
 )
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        load_instance = True
 
 class RecipientSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
